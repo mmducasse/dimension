@@ -20,17 +20,18 @@ impl Object {
     }
 
     pub fn update(&mut self) {
+        const DELTA: i32 = 8;
         if is_key_pressed(KeyCode::Left) {
-            self.pos.x -= 2;
+            self.pos.x -= DELTA;
         }
         if is_key_pressed(KeyCode::Right) {
-            self.pos.x += 2;
+            self.pos.x += DELTA;
         }
         if is_key_pressed(KeyCode::Up) {
-            self.pos.y -= 2;
+            self.pos.y -= DELTA;
         }
         if is_key_pressed(KeyCode::Down) {
-            self.pos.y += 2;
+            self.pos.y += DELTA;
         }
     }
 

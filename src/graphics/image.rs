@@ -1,8 +1,10 @@
 use macroquad::{texture::Image, prelude::BLUE};
 use xf::{
-    gl::{bitmap::Bitmap, color::Color}, 
+    gl::{bitmap::Bitmap, color::Color, texture::Texture}, 
     num::{ivec2::{i2, IVec2}, irect::IRect}
 };
+
+const DEFAULT: Color = Color::BLACK;
 
 /// A wrapper for Macroquad's Image struct
 /// that implements xf's Bitmap trait.
@@ -37,8 +39,15 @@ impl Bitmap for ImageW {
         i2(w, h)
     }
 
-    fn get_pixel(&self, _: IVec2) -> Color {
-        todo!()
+    fn get_pixel(&self, pos: IVec2) -> Color {
+        let x = pos.x as u32;
+        let y = pos.y as u32;
+        if let Some(image) = &self.0 {
+            let color = image.get_pixel(x, y);
+            convert_mq_color_to_xf_color(color)
+        } else {
+            DEFAULT
+        }
     }
 
     fn set_pixel(&mut self, pos: IVec2, color: Color) {
@@ -53,4 +62,29 @@ impl Bitmap for ImageW {
             }
         }
     }
+}
+
+pub fn convert_mq_color_to_xf_color(color: macroquad::prelude::Color) -> Color {
+    let bs: [u8; 4] = color.into();
+    Color {
+        r: bs[0],
+        g: bs[1],
+        b: bs[2],
+        a: bs[3],
+    }
+}
+
+pub fn convert_mq_image_to_xf_texture(image: &Image) -> Texture {
+    let size = i2(image.width as i32, image.height as i32);
+    let mut texture = Texture::of_size(size);
+
+    for pos in texture.bounds().iter() {
+        let x = pos.x as u32;
+        let y = pos.y as u32;
+        let color = image.get_pixel(x, y);
+            
+        texture.set(pos, convert_mq_color_to_xf_color(color));
+    }
+
+    texture
 }

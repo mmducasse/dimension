@@ -1,0 +1,12 @@
+
+DONE:
+
+
+TODO:
+- Map loading
+- Player
+- Map collision
+- Item pickups
+- Enemies
+- Damage
+- Day/Night transition

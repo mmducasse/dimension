@@ -10,6 +10,7 @@ mod graphics;
 mod consts;
 mod common;
 mod game;
+mod level;
 mod object; // todo: remove Object
 
 #[macroquad::main("dimension")]

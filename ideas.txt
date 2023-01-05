@@ -1,0 +1,49 @@
+
+
+Day/Night platformer:
+
+  Day             | Night
+  ========================================
+  Dry             | Water
+  Plants/Flowers  | Dead or shriveled-up plants
+  Light           | Dark (hard to see)
+  Fire            | Rain
+  Hot             | Icy
+
+
+
+
+How to go between dimensions:
+  - Simple button press after getting item
+    - Maybe only allow in certain areas, like Sun/Moon light
+  
+
+Items:
+  * Solar Shard (useable at night time):
+    * Changes environment to Day when player is in moonlight
+    * Shoots fireballs otherwise
+  * Lunar Shard (useable in day time):
+    * Changes environment to Night when player is in sunlight
+    * Blade attack otherwise
+  * Dash Boots:
+    * Allows the player to dash on the ground by pressing Down+(Left/Right)
+  * Climbing Gloves:
+    * Allows the player to wall slide and wall jump
+
+
+Goal:
+  * Collect the <N> gems to restore nature
+    * [Rain, Wind, Fire, Ice, Cosmic, Ancient Stone]
+
+
+Player Movement:
+  * Idle [Normal, Shoot, Slash]
+  * Run [Normal, Shoot]
+  * Jump
+  * Wall Slide
+  * Wall Jump
+  * Dash
+  * Slash
+
+  * Hurt
+  * Die
