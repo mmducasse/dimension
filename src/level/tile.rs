@@ -10,6 +10,14 @@ pub enum Tile {
     Wall,
 }
 
+impl Tile {
+    pub fn is_impassable(self) -> bool {
+        use Tile::*;
+
+        matches!(self, Wall)
+    }
+}
+
 impl Default for Tile {
     fn default() -> Self { Tile::Empty }
 }

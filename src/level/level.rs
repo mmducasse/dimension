@@ -6,8 +6,10 @@ use xf::map::tiled_json::tilemap::JsonTilemap;
 use xf::map::tilemap::Tilemap;
 use xf::map::{tileset::Tileset, tiled_json::tileset::JsonTile};
 use xf::map::tiled_json::tileset::JsonTileset;
+use xf::num::irect::{IRect, ir};
 use xf::num::ivec2::IVec2;
 
+use crate::consts::P16;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
 
 use super::{room::Room, level_info::LevelId, tile::Tile};
@@ -21,6 +23,28 @@ pub struct Level {
 impl Level {
     pub fn draw(&self, org: IVec2) {
         self.room.draw(org);
+    }
+
+    /// Returns colliders for all tiles.
+    pub fn get_colliders(&self) -> Vec<IRect> {
+        let mut vec = vec![];
+
+        // Get bounds of colliding tiles.
+        let tilemap = &self.room.tilemap;
+        for (idx, tile_src_pos) in tilemap.tile_srcs.iter().enumerate() {
+            if let Some(src) = tile_src_pos {
+                if let Some(tile) = tilemap.tileset.tiles.get(*src) {
+                    if tile.is_impassable() {
+                        let tile_p16_pos = tilemap.tile_srcs.to_pt(idx);
+                        let tile_bounds = ir(tile_p16_pos * P16, P16);
+        
+                        vec.push(tile_bounds);
+                    }
+                }
+            }
+        }
+        
+        vec
     }
 
     pub fn load(id: LevelId) -> Result<Self, String> {

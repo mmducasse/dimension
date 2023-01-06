@@ -13,6 +13,7 @@ mod graphics;
 mod consts;
 mod common;
 mod systems;
+mod io;
 mod game;
 mod level;
 mod entities;
