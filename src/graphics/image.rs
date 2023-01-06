@@ -51,6 +51,8 @@ impl Bitmap for ImageW {
     }
 
     fn set_pixel(&mut self, pos: IVec2, color: Color) {
+        if color.a < 120 { return; } //todo: additive color blending.
+        
         if IRect::of_size(self.size()).contains(pos) {
             let color = macroquad::color::Color::from_rgba(
                 color.r, color.g, color.b, color.a);
@@ -87,4 +89,9 @@ pub fn convert_mq_image_to_xf_texture(image: &Image) -> Texture {
     }
 
     texture
+}
+
+pub fn xf_texture_from_bytes(bytes: &'static [u8]) -> Texture {
+    let image = Image::from_file_with_format(bytes, None);
+    convert_mq_image_to_xf_texture(&image)
 }
