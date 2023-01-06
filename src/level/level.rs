@@ -25,6 +25,14 @@ impl Level {
         self.room.draw(org);
     }
 
+    pub fn p16_size(&self) -> IVec2 {
+        self.room.tilemap.size()
+    }
+
+    pub fn bounds(&self) -> IRect {
+        IRect::of_size(self.p16_size() * P16)
+    }
+
     /// Returns colliders for all tiles.
     pub fn get_colliders(&self) -> Vec<IRect> {
         let mut vec = vec![];
