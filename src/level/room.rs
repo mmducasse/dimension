@@ -17,7 +17,7 @@ impl Room {
                 let src = ir(tile_src_p16 * P16, P16);
                 let dst_pt = pos_p16 * P16;
     
-                draw_texture(&self.tilemap.tileset.texture, src, dst_pt + org);
+                draw_texture(&self.tilemap.tileset.texture, src, dst_pt - org);
             }
         }
     }

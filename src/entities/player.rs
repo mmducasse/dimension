@@ -126,7 +126,7 @@ impl Entity for Player {
     }
 
     fn draw(&self, org: IVec2) {
-        self.animator.draw(&self.texture, self.pos.as_ivec2() +  org, buffer_mut());
+        self.animator.draw(&self.texture, self.pos.as_ivec2() - org, buffer_mut());
     }
 }
 

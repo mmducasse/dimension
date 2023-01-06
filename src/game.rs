@@ -1,13 +1,14 @@
 use std::time::SystemTime;
 
 use macroquad::window::next_frame;
-use xf::{num::ivec2::{i2, IVec2}, time::time};
+use xf::{num::ivec2::i2, time::time};
 
 use crate::{
-    graphics::buffer::render_buffer,
+    graphics::{buffer::render_buffer, camera},
     level::level::Level, 
     entities::{player::Player, entity::Entity}, 
-    common::update_data::UpdateData
+    common::update_data::UpdateData, 
+    consts::SCREEN_SIZE
 };
 
 pub async fn run() {
@@ -35,8 +36,10 @@ pub async fn run() {
         player.update(&update_data);
 
         // Draw.
-        level.draw(IVec2::ZERO);
-        player.draw(IVec2::ZERO);
+        let org = camera::follow(player.bounds().center(), SCREEN_SIZE, level.bounds());
+
+        level.draw(org);
+        player.draw(org);
         
         // Finish frame.
         render_buffer();
