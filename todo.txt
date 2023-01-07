@@ -1,12 +1,14 @@
 
 DONE:
++ Map loading
++ Player
++ Map collision
 
 
 TODO:
-- Map loading
-- Player
-- Map collision
 - Item pickups
 - Enemies
 - Damage
 - Day/Night transition
+- Player Movement States
+- Player Attacks

@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 use macroquad::window::next_frame;
-use xf::{num::ivec2::i2, time::time};
+use xf::{num::{ivec2::i2, irect::ir}, time::time};
 
 use crate::{
     graphics::{buffer::render_buffer, camera},
@@ -38,7 +38,7 @@ pub async fn run() {
         // Draw.
         let org = camera::follow(player.bounds().center(), SCREEN_SIZE, level.bounds());
 
-        level.draw(org);
+        level.draw(ir(org, SCREEN_SIZE));
         player.draw(org);
         
         // Finish frame.

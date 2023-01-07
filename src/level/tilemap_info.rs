@@ -2,7 +2,8 @@ use super::tileset_info::{TilesetInfo, TilesetId};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum TilemapId {
-    Test,
+    Day,
+    Night,
 }
 
 impl TilemapId {
@@ -10,7 +11,8 @@ impl TilemapId {
         use TilemapId::*;
 
         match self {
-            Test => TEST_TILEMAP,
+            Day => DAY_TILEMAP,
+            Night => todo!(),
         }
     }
 }
@@ -20,7 +22,7 @@ pub struct TilemapInfo {
     pub tileset_info: &'static TilesetInfo,
 }
 
-const TEST_TILEMAP: TilemapInfo = TilemapInfo {
-    tilemap: include_bytes!("../../assets/Tilemaps/TestMap.tmj"),
-    tileset_info: &TilesetId::Test.info(),
+const DAY_TILEMAP: TilemapInfo = TilemapInfo {
+    tilemap: include_bytes!("../../assets/Tilemaps/DayLevel.tmj"),
+    tileset_info: &TilesetId::Day.info(),
 };

@@ -21,5 +21,5 @@ pub struct LevelInfo {
 }
 
 const TEST_LEVEL: LevelInfo = LevelInfo {
-    tilemap_info: TilemapId::Test.info(),
+    tilemap_info: TilemapId::Day.info(),
 };

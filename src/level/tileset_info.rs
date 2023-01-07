@@ -1,7 +1,8 @@
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum TilesetId {
-    Test,
+    Day,
+    Night,
 }
 
 impl TilesetId {
@@ -9,7 +10,8 @@ impl TilesetId {
         use TilesetId::*;
 
         match self {
-            Test => TEST_TILESET,
+            Day => DAY_TILESET,
+            Night => NIGHT_TILESET,
         }
     }
 }
@@ -19,7 +21,12 @@ pub struct TilesetInfo {
     pub image: &'static [u8],
 }
 
-const TEST_TILESET: TilesetInfo = TilesetInfo {
-    tileset: include_bytes!("../../assets/tilesets/TestTileset.tsj"),
-    image: include_bytes!("../../assets/tilesets/TestTileset.png"),
+const DAY_TILESET: TilesetInfo = TilesetInfo {
+    tileset: include_bytes!("../../assets/tilesets/DayTileset.tsj"),
+    image: include_bytes!("../../assets/tilesets/DayTileset.png"),
+};
+
+const NIGHT_TILESET: TilesetInfo = TilesetInfo {
+    tileset: include_bytes!("../../assets/tilesets/NightTileset.tsj"),
+    image: include_bytes!("../../assets/tilesets/NightTileset.png"),
 };

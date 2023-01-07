@@ -111,7 +111,7 @@ impl Entity for Player {
         self.pos += self.vel;
         self.vel += GRAVITY;
 
-        let deflection = collide(self.bounds(), d.level.get_colliders(), Some(d.level.bounds()));
+        let deflection = collide(self.bounds(), d.level.get_colliders_near(self.bounds().center()), Some(d.level.bounds()));
         self.pos += deflection.as_fvec2();
 
         if self.vel.y > 0.0 && deflection.y < 0 {

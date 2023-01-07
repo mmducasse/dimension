@@ -47,3 +47,22 @@ Player Movement:
 
   * Hurt
   * Die
+
+
+Items can show hidden stuff:
+  - Lantern: Shows hidden doors
+  - Diving bell: Shows invisible water
+  - Mirror: Shows hidden platforms behind you
+
+
+Items:
+  * Glasses:
+    * Lets you see portals
+  * Dash Boots:
+    * Allows the player to dash on the ground by pressing Down+(Left/Right)
+  * Gloves:
+    * Allows the player to wall slide and wall jump
+  * Scuba Gear
+    * Lets you go underwater
+  * Shovel
+    * Lets you dig soft soil
