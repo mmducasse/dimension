@@ -1,10 +1,10 @@
 use std::time::SystemTime;
 
-use macroquad::window::next_frame;
+use macroquad::{window::next_frame, prelude::{is_key_pressed, KeyCode}};
 use xf::{num::{ivec2::i2, irect::ir}, time::time};
 
 use crate::{
-    graphics::{buffer::render_buffer, camera},
+    graphics::{buffer::render_buffer, camera, window::set_scale},
     level::level::Level, 
     common::update_data::UpdateData, 
     consts::SCREEN_SIZE, 
@@ -48,8 +48,21 @@ pub async fn run() {
         player.draw(org);
         
         // Finish frame.
+        check_requested_new_scale();
         render_buffer();
         next_frame().await;
+    }
+}
+
+fn check_requested_new_scale() {
+    use KeyCode::*;
+    const KEY_CODES: [KeyCode; 9] =
+        [Key0, Key1, Key2, Key3, Key4, Key5, Key6, Key7, Key8];
+        
+    for (scale, &key_code) in KEY_CODES.iter().enumerate() {
+        if is_key_pressed(key_code) {
+            set_scale(scale);
+        }
     }
 }
 

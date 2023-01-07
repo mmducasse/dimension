@@ -7,7 +7,13 @@ DONE:
 
 
 TODO:
-- Item pickups
+- Entities
+  - Item pickups
+    - Equipment: Gloves, Dash Shoes, Glasses, [Swim Gear]
+    - Keys
+  - Coins
+  - Doors
+  - Gates
 - Enemies
 - Damage
 - Day/Night transition
