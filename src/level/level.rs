@@ -11,6 +11,7 @@ use xf::num::ivec2::{IVec2, i2};
 
 use crate::consts::P16;
 use crate::data::item::ItemType;
+use crate::entities::door::Door;
 use crate::entities::entities::Entities;
 use crate::entities::entity::Entity;
 use crate::entities::item::Item;
@@ -127,12 +128,13 @@ fn load_entities(json: &JsonTilemap) -> Entities {
 fn load_entity(object: &Object) -> Box<dyn Entity> {
     let pos = i2(object.x, object.y);
     match object.name.as_str() {
-        "Item" => {
-            Box::new(Item::new(
-                pos, 
-                ItemType::from_str(&object.type_).unwrap(),
-            ))
-        },
+        "Item" => Box::new(Item::new(
+            pos, 
+            ItemType::from_str(&object.type_).unwrap(),
+        )),
+        "Door" => Box::new(Door::new(
+            pos,
+        )),
         _ => panic!("Unexpected object name: {}", object.name),
     }
 }

@@ -9,12 +9,13 @@ pub enum TextureId {
     // Player, NPCs, Mobs, Items
     Player,
     Items,
+    Misc,
 
     // UI
     Hud,
 }
 
-const COUNT: usize = 3;
+const COUNT: usize = 4;
 
 const fn get_bytes(id: TextureId) -> &'static [u8] {
     use TextureId::*;
@@ -22,6 +23,7 @@ const fn get_bytes(id: TextureId) -> &'static [u8] {
     match id {
         Player => include_bytes!("../../assets/Sprites/Player.png"),
         Items => include_bytes!("../../assets/Sprites/Items.png"),
+        Misc => include_bytes!("../../assets/Sprites/Misc.png"),
         Hud => include_bytes!("../../assets/Sprites/Hud.png")
     }
 }
