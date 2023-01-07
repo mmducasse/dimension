@@ -2,14 +2,18 @@ use std::rc::Rc;
 use std::str::FromStr;
 
 use macroquad::texture::Image;
-use xf::map::tiled_json::tilemap::JsonTilemap;
+use xf::map::tiled_json::tilemap::{JsonTilemap, Layer, Object};
 use xf::map::tilemap::Tilemap;
 use xf::map::{tileset::Tileset, tiled_json::tileset::JsonTile};
 use xf::map::tiled_json::tileset::JsonTileset;
 use xf::num::irect::{IRect, ir, rect};
-use xf::num::ivec2::IVec2;
+use xf::num::ivec2::{IVec2, i2};
 
 use crate::consts::P16;
+use crate::data::item::ItemType;
+use crate::entities::entities::Entities;
+use crate::entities::entity::Entity;
+use crate::entities::item::Item;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
 
 use super::{room::Room, level_info::LevelId, tile::Tile};
@@ -86,7 +90,10 @@ impl Level {
         let tilemap = tilemap_layers.into_iter().nth(0).unwrap();
 
         // Create level.
-        let room = Room { tilemap };
+        let room = Room { 
+            tilemap,
+            entities: load_entities(&tilemap_json),
+        };
 
         Ok(Self {
             room,
@@ -100,4 +107,32 @@ fn load_tile(json_tile: &JsonTile) -> Result<Tile, String> {
     } else {
         Tile::Empty
     })
+}
+
+fn load_entities(json: &JsonTilemap) -> Entities {
+    let mut entities = Entities::new();
+
+    for layer in &json.layers {
+        if let Layer::Objectgroup { objects, .. } = layer {
+            for object in objects {
+                let entity = load_entity(&object);
+                entities.add(entity);
+            }
+        }
+    }
+
+    entities
+}
+
+fn load_entity(object: &Object) -> Box<dyn Entity> {
+    let pos = i2(object.x, object.y);
+    match object.name.as_str() {
+        "Item" => {
+            Box::new(Item::new(
+                pos, 
+                ItemType::from_str(&object.type_).unwrap(),
+            ))
+        },
+        _ => panic!("Unexpected object name: {}", object.name),
+    }
 }

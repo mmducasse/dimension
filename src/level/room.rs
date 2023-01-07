@@ -1,6 +1,10 @@
 use xf::{map::tilemap::Tilemap, num::irect::{ir, IRect}};
 
-use crate::{graphics::buffer::draw_texture, consts::P16};
+use crate::{
+    graphics::buffer::draw_texture, 
+    consts::P16, 
+    entities::entities::Entities
+};
 
 use super::tile::Tile;
 
@@ -8,6 +12,7 @@ use super::tile::Tile;
 
 pub struct Room {
     pub tilemap: Tilemap<Tile>,
+    pub entities: Entities,
 }
 
 impl Room {

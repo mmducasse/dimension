@@ -1,4 +1,4 @@
-use xf::num::ivec2::IVec2;
+use xf::num::{ivec2::IVec2, irect::IRect};
 
 use crate::common::update_data::UpdateData;
 
@@ -15,6 +15,7 @@ pub fn next_entity_id() -> usize {
 
 pub trait Entity {
     fn id(&self) -> usize;
+    fn bounds(&self) -> IRect;
     fn update(&mut self, d: &UpdateData);
     fn draw(&self, org: IVec2);
 }

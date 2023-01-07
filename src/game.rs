@@ -8,19 +8,22 @@ use crate::{
     level::level::Level, 
     common::update_data::UpdateData, 
     consts::{VIEW_SIZE, HUD_ORIGIN}, 
-    entities::{player::{player::Player, update_data::PlayerUpdateData}, entities::Entities}, ui::hud, data::item::ItemType, global
+    entities::{
+        player::{player::Player, update_data::PlayerUpdateData},
+    }, 
+    ui::hud, 
+    data::item::ItemType, 
+    global
 };
 
 pub async fn run() {
-    let level = match Level::load(crate::level::level_info::LevelId::Test) {
+    let mut level = match Level::load(crate::level::level_info::LevelId::Test) {
         Ok(level) => level,
         Err(e) => panic!("{}", e),
     };
 
     let mut player = Player::new(i2(32, 32));
-    let mut entities = Entities::new();
-
-    
+    //let mut entities = Entities::new();   
 
     let mut time = SystemTime::now();
 
@@ -32,19 +35,19 @@ pub async fn run() {
         time = next_time;
 
         // Update game state.
-        entities.update(&UpdateData {
-            level: &level,
+        level.room.entities.update(&UpdateData {
+            player: &player,
         });
         player.update(&PlayerUpdateData {
             level: &level,
-            entities: &entities,
+            entities: &level.room.entities,
         });
 
         // Draw.
         let org = camera::follow(player.bounds().center(), VIEW_SIZE, level.bounds());
 
         level.draw(ir(org, VIEW_SIZE));
-        entities.draw(org);
+        level.room.entities.draw(org);
         player.draw(org);
         hud::draw(HUD_ORIGIN);
         
