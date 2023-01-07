@@ -54,6 +54,10 @@ impl Player {
         global::player_state::get().items[item as usize]
     }
 
+    pub fn can_enter_door(&self) -> bool {
+        matches!(self.state, State::Idle | State::Run)
+    }
+
     pub fn update(&mut self, d: &PlayerUpdateData) {
         self.state_timer.update();
         self.state.update(self, d);

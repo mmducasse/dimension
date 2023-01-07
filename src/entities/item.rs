@@ -35,7 +35,7 @@ impl Entity for Item {
         ir(self.pos, P16)
     }
 
-    fn update(&mut self, d: &UpdateData) {
+    fn update(&mut self, d: &mut UpdateData) {
         if self.bounds().intersection(d.player.bounds()).is_some() {
             global::player_state::get_mut().items[self.type_ as usize] = true;
         }

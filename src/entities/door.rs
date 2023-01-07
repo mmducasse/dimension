@@ -34,10 +34,13 @@ impl Entity for Door {
         ir(self.pos, SIZE_P16 * P16)
     }
 
-    fn update(&mut self, d: &UpdateData) {
+    fn update(&mut self, d: &mut UpdateData) {
         if self.bounds().intersection(d.player.bounds()).is_some() &&
-           is_key_pressed(KeyCode::Up) {
+           is_key_pressed(KeyCode::Up) &&
+           d.player.can_enter_door()
+        {
             println!("Enter door {}", self.id);
+            d.entered_door = true;
         }
     }
 

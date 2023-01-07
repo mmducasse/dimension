@@ -12,7 +12,7 @@ impl TilemapId {
 
         match self {
             Day => DAY_TILEMAP,
-            Night => todo!(),
+            Night => NIGHT_TILEMAP,
         }
     }
 }
@@ -25,4 +25,9 @@ pub struct TilemapInfo {
 const DAY_TILEMAP: TilemapInfo = TilemapInfo {
     tilemap: include_bytes!("../../assets/Tilemaps/DayLevel.tmj"),
     tileset_info: &TilesetId::Day.info(),
+};
+
+const NIGHT_TILEMAP: TilemapInfo = TilemapInfo {
+    tilemap: include_bytes!("../../assets/Tilemaps/DayLevel.tmj"),
+    tileset_info: &TilesetId::Night.info(),
 };

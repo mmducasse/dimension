@@ -17,9 +17,11 @@ impl LevelId {
 }
 
 pub struct LevelInfo {
-    pub tilemap_info: TilemapInfo,
+    pub day_tilemap_info: TilemapInfo,
+    pub night_tilemap_info: TilemapInfo,
 }
 
 const TEST_LEVEL: LevelInfo = LevelInfo {
-    tilemap_info: TilemapId::Day.info(),
+    day_tilemap_info: TilemapId::Day.info(),
+    night_tilemap_info: TilemapId::Night.info(),
 };

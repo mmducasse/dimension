@@ -11,6 +11,7 @@ use xf::num::ivec2::{IVec2, i2};
 
 use crate::consts::P16;
 use crate::data::item::ItemType;
+use crate::data::scene_state::SceneState;
 use crate::entities::door::Door;
 use crate::entities::entities::Entities;
 use crate::entities::entity::Entity;
@@ -22,16 +23,21 @@ use super::{room::Room, level_info::LevelId, tile::Tile};
 
 
 pub struct Level {
-    pub room: Room,
+    pub day_room: Room,
+    //pub night_room: Room,
 }
 
 impl Level {
-    pub fn draw(&self, view: IRect) {
-        self.room.draw(view);
+    pub fn draw(&self, view: IRect, scene_state: SceneState) {
+        match scene_state {
+            SceneState::Day => { self.day_room.draw(view) },
+            SceneState::Night => todo!(),
+        }
+        ;
     }
 
     pub fn p16_size(&self) -> IVec2 {
-        self.room.tilemap.size()
+        self.day_room.tilemap.size()
     }
 
     pub fn bounds(&self) -> IRect {
@@ -46,7 +52,7 @@ impl Level {
         let pos_p16 = center / P16;
 
         // Get bounds of colliding tiles.
-        let tilemap = &self.room.tilemap;
+        let tilemap = &self.day_room.tilemap;
 
         for offset in AREA.iter() {
             let tile_p16_pos = pos_p16 + offset;
@@ -63,7 +69,7 @@ impl Level {
     }
 
     pub fn load(id: LevelId) -> Result<Self, String> {
-        let tilemap_info = id.info().tilemap_info;
+        let tilemap_info = id.info().day_tilemap_info;
         let tileset_info = tilemap_info.tileset_info;
 
         // Load tileset image.
@@ -97,7 +103,7 @@ impl Level {
         };
 
         Ok(Self {
-            room,
+            day_room: room,
         })
     }
 }

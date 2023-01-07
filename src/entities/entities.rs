@@ -19,7 +19,7 @@ impl Entities {
         self.all.push(e);
     }
 
-    pub fn update(&mut self, d: &UpdateData) {
+    pub fn update(&mut self, d: &mut UpdateData) {
         for e in &mut self.all {
             e.update(d);
         }

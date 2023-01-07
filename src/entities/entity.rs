@@ -16,6 +16,6 @@ pub fn next_entity_id() -> usize {
 pub trait Entity {
     fn id(&self) -> usize;
     fn bounds(&self) -> IRect;
-    fn update(&mut self, d: &UpdateData);
+    fn update(&mut self, d: &mut UpdateData);
     fn draw(&self, org: IVec2);
 }

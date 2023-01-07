@@ -12,9 +12,10 @@ use crate::{
         player::{player::Player, update_data::PlayerUpdateData},
     }, 
     ui::hud, 
-    data::item::ItemType, 
+    data::{item::ItemType, scene_state::SceneState}, 
     global
 };
+
 
 pub async fn run() {
     let mut level = match Level::load(crate::level::level_info::LevelId::Test) {
@@ -22,6 +23,7 @@ pub async fn run() {
         Err(e) => panic!("{}", e),
     };
 
+    let mut state = SceneState::Day;
     let mut player = Player::new(i2(32, 32));
     //let mut entities = Entities::new();   
 
@@ -35,26 +37,42 @@ pub async fn run() {
         time = next_time;
 
         // Update game state.
-        level.room.entities.update(&UpdateData {
+        
+        let mut d = UpdateData {
             player: &player,
-        });
+            entered_door: false,
+        };
+        level.day_room.entities.update(&mut d);
+        let entered_door = d.entered_door;
+        drop(d);
+
+
         player.update(&PlayerUpdateData {
             level: &level,
-            entities: &level.room.entities,
+            entities: &level.day_room.entities,
+            scene_state: state,
         });
 
         // Draw.
         let org = camera::follow(player.bounds().center(), VIEW_SIZE, level.bounds());
 
-        level.draw(ir(org, VIEW_SIZE));
-        level.room.entities.draw(org);
+        level.draw(ir(org, VIEW_SIZE), state);
+        level.day_room.entities.draw(org);
         player.draw(org);
         hud::draw(HUD_ORIGIN);
         
         // Finish frame.
         check_requested_new_scale();
         check_toggle_item();
-        render_buffer();
+        render_buffer(state != SceneState::Day);
+
+        if entered_door {
+            state = match state {
+                SceneState::Day => SceneState::Night,
+                SceneState::Night => SceneState::Day,
+            }
+        }
+
         next_frame().await;
     }
 }
@@ -70,7 +88,6 @@ fn check_requested_new_scale() {
         }
     }
 }
-
 
 // todo: delete
 fn check_toggle_item() {

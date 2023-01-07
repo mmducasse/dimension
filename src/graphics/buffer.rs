@@ -29,7 +29,7 @@ pub fn buffer_mut() -> &'static mut ImageW {
 }
 
 /// Draws the buffer to the screen then clears the buffer.
-pub fn render_buffer() {
+pub fn render_buffer(flip_x: bool) {
     unsafe {
         // Convert the buffer to a Texture2D then draw it (not very efficient...).
         let texture2d = Texture2D::from_image(BUFFER.image());
@@ -39,7 +39,7 @@ pub fn render_buffer() {
             dest_size: Some(Vec2::new(screen_width(), screen_height())),
             source: None,
             rotation: 0.0,
-            flip_x: false,
+            flip_x,
             flip_y: false,
             pivot: None,
         });

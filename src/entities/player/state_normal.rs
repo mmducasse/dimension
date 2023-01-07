@@ -10,7 +10,7 @@ use super::{player::Player, state::State, consts::RUN_SPEED_X, state_jump, state
 
 
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {
-    if let Some(dir) = get_dir_h_down() {
+    if let Some(dir) = get_dir_h_down(d.scene_state.reversed()) {
         player.dir = dir;
         player.state = State::Run;
         player.vel.x = dir.unit().x as f32 * RUN_SPEED_X;

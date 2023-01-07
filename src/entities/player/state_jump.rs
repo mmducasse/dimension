@@ -22,7 +22,7 @@ pub fn start(player: &mut Player) {
 }
 
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {
-    if let Some(dir) = get_dir_h_down() {
+    if let Some(dir) = get_dir_h_down(d.scene_state.reversed()) {
         player.dir = dir;
         let speed = player.vel.x.abs().max(RUN_SPEED_X);
         player.vel.x = dir.unit().x as f32 * speed;
