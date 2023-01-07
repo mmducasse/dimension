@@ -2,10 +2,18 @@ use macroquad::prelude::{KeyCode, is_key_down};
 
 use crate::{
     io::controller::get_dir_h_down, 
-    systems::collision::collide, consts::GRAVITY
+    systems::collision::collide, 
+    consts::GRAVITY, 
+    data::item::ItemType
 };
 
-use super::{player::Player, state::State, consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X}, state_dash, update_data::PlayerUpdateData};
+use super::{
+    player::Player, 
+    state::State, 
+    consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X}, 
+    state_dash, 
+    update_data::PlayerUpdateData
+};
 
 pub fn start(player: &mut Player) {
     player.pos.y -= 1.0;
@@ -34,7 +42,8 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
 
     if player.vel.y > 0.0 && deflection.y < 0 {
         player.vel.y = 0.0;
-        if is_key_down(KeyCode::Down) {
+        if Player::has_item(ItemType::Boots) &&
+           is_key_down(KeyCode::Down) {
             state_dash::start(player.dir, player);
         } else {
             player.state = State::Idle;
@@ -44,7 +53,8 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
         player.vel.y = JUMP_RELEASE_VEL_Y;
     }
 
-    if player.vel.y > WALLSLIDE_VEL_Y &&
+    if Player::has_item(ItemType::Gloves) &&
+       player.vel.y > WALLSLIDE_VEL_Y &&
        (player.vel.x * deflection.x as f32) < 0.0 {
         player.state = State::WallSlide
     }

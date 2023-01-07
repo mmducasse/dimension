@@ -10,7 +10,9 @@ use crate::{
     graphics::{
         textures::TextureId, 
         buffer::buffer_mut
-    }, entities::entity::next_entity_id,
+    }, 
+    entities::entity::next_entity_id, 
+    data::item::ItemType, global,
 };
 
 use super::{state::State, anim::{AnimKey, animator}, update_data::PlayerUpdateData};
@@ -46,6 +48,10 @@ impl Player {
             self.pos.as_ivec2() + i2(2, 2), 
             i2(12, 14)
         )
+    }
+
+    pub fn has_item(item: ItemType) -> bool {
+        global::player_state::get().items[item as usize]
     }
 
     pub fn update(&mut self, d: &PlayerUpdateData) {
