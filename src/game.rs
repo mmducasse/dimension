@@ -6,9 +6,9 @@ use xf::{num::{ivec2::i2, irect::ir}, time::time};
 use crate::{
     graphics::{buffer::render_buffer, camera},
     level::level::Level, 
-    entities::{player::Player, entity::Entity}, 
     common::update_data::UpdateData, 
-    consts::SCREEN_SIZE
+    consts::SCREEN_SIZE, 
+    entities::{player::player::Player, entity::Entity}
 };
 
 pub async fn run() {
