@@ -7,8 +7,8 @@ use crate::{
     graphics::{buffer::render_buffer, camera, window::set_scale},
     level::level::Level, 
     common::update_data::UpdateData, 
-    consts::SCREEN_SIZE, 
-    entities::{player::{player::Player, update_data::PlayerUpdateData}, entities::Entities}
+    consts::{SCREEN_SIZE, VIEW_SIZE, HUD_P16_ORIGIN, HUD_ORIGIN}, 
+    entities::{player::{player::Player, update_data::PlayerUpdateData}, entities::Entities}, ui::hud
 };
 
 pub async fn run() {
@@ -41,11 +41,12 @@ pub async fn run() {
         });
 
         // Draw.
-        let org = camera::follow(player.bounds().center(), SCREEN_SIZE, level.bounds());
+        let org = camera::follow(player.bounds().center(), VIEW_SIZE, level.bounds());
 
-        level.draw(ir(org, SCREEN_SIZE));
+        level.draw(ir(org, VIEW_SIZE));
         entities.draw(org);
         player.draw(org);
+        hud::draw(HUD_ORIGIN);
         
         // Finish frame.
         check_requested_new_scale();

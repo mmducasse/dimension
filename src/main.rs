@@ -14,13 +14,14 @@ mod io;
 mod game;
 mod level;
 mod entities;
+mod ui;
 
 #[macroquad::main("dimension")]
 async fn main() {
     println!("*** Interstellar Game Jam 2023 ***");
     println!(" \"Another Dimension\" ");
 
-    set_scale(3);
+    set_scale(2);
     
     buffer_mut().init(SCREEN_SIZE);
 
