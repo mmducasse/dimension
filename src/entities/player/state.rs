@@ -1,9 +1,8 @@
 use crate::{
-    entities::player::{state_normal, state_jump, state_dash, state_wallslide}, 
-    common::{update_data::UpdateData}
+    entities::player::{state_normal, state_jump, state_dash, state_wallslide},
 };
 
-use super::{player::Player, anim::AnimKey};
+use super::{player::Player, anim::AnimKey, update_data::PlayerUpdateData};
 
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -34,7 +33,7 @@ impl State {
         }
     }
 
-    pub fn update(self, player: &mut Player, d: &UpdateData) {
+    pub fn update(self, player: &mut Player, d: &PlayerUpdateData) {
         use State::*;
 
         match self {

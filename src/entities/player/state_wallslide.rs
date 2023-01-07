@@ -1,14 +1,11 @@
 use macroquad::prelude::{is_key_pressed, KeyCode};
 
-use crate::{ 
-    common::update_data::UpdateData, 
-    systems::collision::collide,
-};
+use crate::systems::collision::collide;
 
-use super::{player::Player, state::State, consts::{WALLSLIDE_VEL_Y}, state_jump};
+use super::{player::Player, state::State, consts::{WALLSLIDE_VEL_Y}, state_jump, update_data::PlayerUpdateData};
 
 
-pub fn update(player: &mut Player, d: &UpdateData) {
+pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     player.vel.x = player.dir.unit().x as f32 * WALLSLIDE_VEL_Y;
     player.vel.y = WALLSLIDE_VEL_Y;
     player.pos += player.vel;

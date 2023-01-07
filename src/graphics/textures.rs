@@ -10,7 +10,7 @@ pub enum TextureId {
     Player,
 }
 
-fn get_bytes(id: TextureId) -> &'static [u8] {
+const fn get_bytes(id: TextureId) -> &'static [u8] {
     use TextureId::*;
 
     match id {

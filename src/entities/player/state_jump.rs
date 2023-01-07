@@ -2,11 +2,10 @@ use macroquad::prelude::{KeyCode, is_key_down};
 
 use crate::{
     io::controller::get_dir_h_down, 
-    common::update_data::UpdateData, 
     systems::collision::collide, consts::GRAVITY
 };
 
-use super::{player::Player, state::State, consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X}, state_dash};
+use super::{player::Player, state::State, consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X}, state_dash, update_data::PlayerUpdateData};
 
 pub fn start(player: &mut Player) {
     player.pos.y -= 1.0;
@@ -14,7 +13,7 @@ pub fn start(player: &mut Player) {
     player.state = State::Jump;
 }
 
-pub fn update(player: &mut Player, d: &UpdateData) {
+pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     if let Some(dir) = get_dir_h_down() {
         player.dir = dir;
         let speed = player.vel.x.abs().max(RUN_SPEED_X);

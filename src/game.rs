@@ -8,7 +8,7 @@ use crate::{
     level::level::Level, 
     common::update_data::UpdateData, 
     consts::SCREEN_SIZE, 
-    entities::{player::player::Player, entity::Entity}
+    entities::{player::{player::Player, update_data::PlayerUpdateData}, entities::Entities}
 };
 
 pub async fn run() {
@@ -18,6 +18,9 @@ pub async fn run() {
     };
 
     let mut player = Player::new(i2(32, 32));
+    let mut entities = Entities::new();
+
+    
 
     let mut time = SystemTime::now();
 
@@ -29,16 +32,19 @@ pub async fn run() {
         time = next_time;
 
         // Update game state.
-        let update_data = UpdateData {
+        entities.update(&UpdateData {
             level: &level,
-        };
-
-        player.update(&update_data);
+        });
+        player.update(&PlayerUpdateData {
+            level: &level,
+            entities: &entities,
+        });
 
         // Draw.
         let org = camera::follow(player.bounds().center(), SCREEN_SIZE, level.bounds());
 
         level.draw(ir(org, SCREEN_SIZE));
+        entities.draw(org);
         player.draw(org);
         
         // Finish frame.

@@ -6,3 +6,4 @@ mod consts;
 mod state_jump;
 mod state_dash;
 mod state_wallslide;
+pub mod update_data;

@@ -2,11 +2,11 @@ use macroquad::prelude::{is_key_pressed, KeyCode, is_key_down};
 use xf::time::timer::Timer;
 
 use crate::{
-    common::{update_data::UpdateData, dir_h::DirH}, 
+    common::dir_h::DirH, 
     systems::collision::collide, consts::GRAVITY
 };
 
-use super::{player::Player, state::State, consts::{DASH_TIME_S, DASH_SPEED_X}, state_jump};
+use super::{player::Player, state::State, consts::{DASH_TIME_S, DASH_SPEED_X}, state_jump, update_data::PlayerUpdateData};
 
 pub fn start(dir: DirH, player: &mut Player) {
     player.dir = dir;
@@ -15,7 +15,7 @@ pub fn start(dir: DirH, player: &mut Player) {
     player.vel.x = dir.unit().x as f32 * DASH_SPEED_X;
 }
 
-pub fn update(player: &mut Player, d: &UpdateData) {
+pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     if !is_key_down(KeyCode::Down) ||
        player.state_timer.is_done() {
         player.state = State::Idle;

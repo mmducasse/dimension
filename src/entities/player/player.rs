@@ -6,17 +6,18 @@ use xf::{
 };
 
 use crate::{
-    common::{dir_h::DirH, update_data::UpdateData},
+    common::{dir_h::DirH},
     graphics::{
         textures::TextureId, 
         buffer::buffer_mut
-    }, entities::entity::Entity,
+    }, entities::entity::next_entity_id,
 };
 
-use super::{state::State, anim::{AnimKey, animator}};
+use super::{state::State, anim::{AnimKey, animator}, update_data::PlayerUpdateData};
 
 
 pub struct Player {
+    id: usize,
     pub pos: FVec2,
     pub vel: FVec2,
     pub dir: DirH,
@@ -29,6 +30,7 @@ pub struct Player {
 impl Player {
     pub fn new(pos: IVec2) -> Self {
         Self {
+            id: next_entity_id(),
             pos: pos.as_fvec2(),
             vel: FVec2::ZERO,
             dir: DirH::R,
@@ -45,11 +47,8 @@ impl Player {
             i2(12, 14)
         )
     }
-}
 
-impl Entity for Player {
-
-    fn update(&mut self, d: &UpdateData) {
+    pub fn update(&mut self, d: &PlayerUpdateData) {
         self.state_timer.update();
         self.state.update(self, d);
 
@@ -57,7 +56,7 @@ impl Entity for Player {
         self.animator.update();
     }
 
-    fn draw(&self, org: IVec2) {
+    pub fn draw(&self, org: IVec2) {
         self.animator.draw(&self.texture, self.pos.as_ivec2() - org, buffer_mut());
     }
 }

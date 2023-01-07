@@ -2,15 +2,14 @@ use macroquad::prelude::{is_key_pressed, KeyCode};
 
 use crate::{
     io::controller::get_dir_h_down, 
-    common::update_data::UpdateData, 
     systems::collision::collide, consts::GRAVITY
 };
 
-use super::{player::Player, state::State, consts::RUN_SPEED_X, state_jump, state_dash};
+use super::{player::Player, state::State, consts::RUN_SPEED_X, state_jump, state_dash, update_data::PlayerUpdateData};
 
 
 
-pub fn update(player: &mut Player, d: &UpdateData) {
+pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     if let Some(dir) = get_dir_h_down() {
         player.dir = dir;
         player.state = State::Run;
