@@ -15,6 +15,8 @@ mod game;
 mod level;
 mod entities;
 mod ui;
+mod data;
+mod global;
 
 #[macroquad::main("dimension")]
 async fn main() {

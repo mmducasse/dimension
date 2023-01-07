@@ -2,7 +2,7 @@ use macroquad::prelude::{is_key_pressed, KeyCode};
 
 use crate::{
     io::controller::get_dir_h_down, 
-    systems::collision::collide, consts::GRAVITY
+    systems::collision::collide, consts::GRAVITY, data::item::ItemType
 };
 
 use super::{player::Player, state::State, consts::RUN_SPEED_X, state_jump, state_dash, update_data::PlayerUpdateData};
@@ -19,7 +19,8 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
         player.vel.x = 0.0;
     }
 
-    if player.state == State::Run &&
+    if Player::has_item(ItemType::Boots) &&
+       player.state == State::Run &&
        is_key_pressed(KeyCode::Down) {
         state_dash::start(player.dir, player);
     }

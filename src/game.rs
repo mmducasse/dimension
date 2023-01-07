@@ -7,8 +7,8 @@ use crate::{
     graphics::{buffer::render_buffer, camera, window::set_scale},
     level::level::Level, 
     common::update_data::UpdateData, 
-    consts::{SCREEN_SIZE, VIEW_SIZE, HUD_P16_ORIGIN, HUD_ORIGIN}, 
-    entities::{player::{player::Player, update_data::PlayerUpdateData}, entities::Entities}, ui::hud
+    consts::{VIEW_SIZE, HUD_ORIGIN}, 
+    entities::{player::{player::Player, update_data::PlayerUpdateData}, entities::Entities}, ui::hud, data::item::ItemType, global
 };
 
 pub async fn run() {
@@ -50,6 +50,7 @@ pub async fn run() {
         
         // Finish frame.
         check_requested_new_scale();
+        check_toggle_item();
         render_buffer();
         next_frame().await;
     }
@@ -67,3 +68,17 @@ fn check_requested_new_scale() {
     }
 }
 
+
+// todo: delete
+fn check_toggle_item() {
+    use KeyCode::*;
+    const KEY_CODES: [KeyCode; ItemType::COUNT] =
+        [Q, W, E];
+        
+    for (item_idx, &key_code) in KEY_CODES.iter().enumerate() {
+        if is_key_pressed(key_code) {
+            let item = &mut global::player_state::get_mut().items[item_idx];
+            *item = !(*item);
+        }
+    }
+}
