@@ -38,7 +38,6 @@ impl Entity for Door {
            is_key_pressed(KeyCode::Up) &&
            d.player.can_enter_door()
         {
-            println!("Enter door {}", self.id);
             d.entered_door = true;
         }
     }

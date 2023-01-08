@@ -3,16 +3,25 @@ use xf::time::timer::Timer;
 
 use crate::{
     common::dir_h::DirH, 
-    systems::collision::collide, consts::GRAVITY
+    systems::collision::collide, consts::GRAVITY, 
+    global
 };
 
-use super::{player::Player, state::State, consts::{DASH_TIME_S, DASH_SPEED_X}, state_jump, update_data::PlayerUpdateData, state_normal};
+use super::{
+    player::Player, 
+    state::State, 
+    consts::{DASH_TIME_S, DASH_SPEED_X}, 
+    state_jump, 
+    update_data::PlayerUpdateData, 
+    state_normal
+};
 
 pub fn start(dir: DirH, player: &mut Player) {
     player.dir = dir;
     player.state = State::Dash;
     player.state_timer = Timer::new(DASH_TIME_S);
     player.vel.x = dir.unit().x as f32 * DASH_SPEED_X;
+    global::player_state::get_mut().last_checkpoint_pos = player.pos;
 }
 
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {
