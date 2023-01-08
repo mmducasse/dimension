@@ -18,6 +18,7 @@ use crate::entities::entity::{Entity, DrawData};
 use crate::entities::item::Item;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
 
+use super::tile::TileType;
 use super::tilemap_info::TilemapInfo;
 use super::{room::Room, level_info::LevelId, tile::Tile};
 
@@ -61,6 +62,15 @@ impl Level {
         IRect::of_size(self.p16_size() * P16)
     }
 
+    pub fn tile_type_at(&self, pos: IVec2, scene_state: SceneState) -> TileType {
+        let pos_p16 = pos / P16;
+        if let Some(tile) = self.curr_room(scene_state).tilemap.get(pos_p16) {
+            tile.type_
+        } else {
+            TileType::Empty
+        }
+    }
+
     /// Returns colliders for all tiles.
     pub fn get_colliders_near(&self, center: IVec2) -> Vec<IRect> {
         const AREA: IRect = rect(-1, -1, 3, 3);
@@ -74,7 +84,7 @@ impl Level {
         for offset in AREA.iter() {
             let tile_p16_pos = pos_p16 + offset;
             if let Some(tile) = tilemap.get(tile_p16_pos) {
-                if tile.is_impassable() {
+                if tile.type_.is_impassable() {
                     let tile_bounds = ir(tile_p16_pos * P16, P16);
     
                     vec.push(tile_bounds);
@@ -133,10 +143,25 @@ fn load_room(tilemap_info: &TilemapInfo) -> Result<Room, String> {
 
 fn load_tile(json_tile: &JsonTile) -> Result<Tile, String> {
     Ok(if let Some(type_) = &json_tile.type_ {
-        Tile::from_str(type_).unwrap()
+        Tile {
+            type_: TileType::from_str(type_).unwrap(),
+            frames: get_tile_property(json_tile, "Frames").map(|s| u64::from_str(s).unwrap()),
+        }
     } else {
-        Tile::Empty
+        Tile::default()
     })
+}
+
+fn get_tile_property<'a>(json_tile: &'a JsonTile, name: &str) -> Option<&'a str> {
+    if let Some(properties) = &json_tile.properties {
+        for property in properties {
+            if property.name == name {
+                return Some(&property.value)
+            }
+        }
+    }
+    
+    None
 }
 
 fn load_entities(json: &JsonTilemap) -> Entities {
@@ -145,6 +170,7 @@ fn load_entities(json: &JsonTilemap) -> Entities {
     for layer in &json.layers {
         if let Layer::Objectgroup { objects, .. } = layer {
             for object in objects {
+                if object.name == "Player" { continue; }
                 let entity = load_entity(&object);
                 entities.add(entity);
             }

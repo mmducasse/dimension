@@ -34,6 +34,16 @@
          "type":"Wall"
         }, 
         {
+         "id":8,
+         "properties":[
+                {
+                 "name":"Frames",
+                 "type":"string",
+                 "value":"4"
+                }],
+         "type":"Water"
+        }, 
+        {
          "id":20,
          "type":"Wall"
         }, 
@@ -56,6 +66,10 @@
         {
          "id":25,
          "type":"Wall"
+        }, 
+        {
+         "id":28,
+         "type":"Water"
         }, 
         {
          "id":40,

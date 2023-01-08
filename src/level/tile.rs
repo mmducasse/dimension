@@ -5,32 +5,49 @@ use crate::common::void::Void;
 
 
 #[derive(Clone, Copy, PartialEq, Eq)]
-pub enum Tile {
+pub enum TileType {
     Empty,
     Wall,
+    Water,
 }
 
-impl Tile {
+impl TileType {
     pub fn is_impassable(self) -> bool {
-        use Tile::*;
+        use TileType::*;
 
         matches!(self, Wall)
     }
 }
 
-impl Default for Tile {
-    fn default() -> Self { Tile::Empty }
+impl Default for TileType {
+    fn default() -> Self { TileType::Empty }
 }
 
-impl FromStr for Tile {
+impl FromStr for TileType {
     type Err = Void;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        use Tile::*;
+        use TileType::*;
 
         Ok(match s {
             "Wall" => Wall,
+            "Water" => Water,
             _ => Empty,
         })
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct Tile {
+    pub type_: TileType,
+    pub frames: Option<u64>,
+}
+
+impl Default for Tile {
+    fn default() -> Self {
+        Self { 
+            type_: Default::default(), 
+            frames: None, 
+        }
     }
 }

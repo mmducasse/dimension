@@ -23,7 +23,8 @@ pub struct PlayerState {
 impl PlayerState {
     const fn new() -> Self {
         Self {
-            items: [false; ItemType::COUNT],
+            // todo: set to false.
+            items: [true; ItemType::COUNT],
         }
     }
 }
