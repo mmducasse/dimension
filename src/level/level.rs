@@ -6,7 +6,7 @@ use xf::map::tiled_json::tilemap::{JsonTilemap, Layer, Object};
 use xf::map::tilemap::Tilemap;
 use xf::map::{tileset::Tileset, tiled_json::tileset::JsonTile};
 use xf::map::tiled_json::tileset::JsonTileset;
-use xf::num::irect::{IRect, ir, rect};
+use xf::num::irect::IRect;
 use xf::num::ivec2::{IVec2, i2};
 
 use crate::consts::P16;
@@ -71,30 +71,6 @@ impl Level {
         } else {
             TileType::Empty
         }
-    }
-
-    /// Returns colliders for all tiles.
-    pub fn get_colliders_near(&self, center: IVec2) -> Vec<IRect> {
-        const AREA: IRect = rect(-1, -1, 3, 3);
-        let mut vec = vec![];
-
-        let pos_p16 = center / P16;
-
-        // Get bounds of colliding tiles.
-        let tilemap = &self.day_room.tilemap;
-
-        for offset in AREA.iter() {
-            let tile_p16_pos = pos_p16 + offset;
-            if let Some(tile) = tilemap.get(tile_p16_pos) {
-                if tile.type_.is_impassable() {
-                    let tile_bounds = ir(tile_p16_pos * P16, P16);
-    
-                    vec.push(tile_bounds);
-                }
-            }
-        }
-        
-        vec
     }
 
     pub fn load(id: LevelId) -> Result<Self, String> {

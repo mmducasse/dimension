@@ -12,6 +12,10 @@ impl Entities {
         Self { all: vec![] }
     }
 
+    pub fn all(&self) -> &Vec<Box<dyn Entity>> {
+        &self.all
+    }
+
     pub fn add(&mut self, e: Box<dyn Entity>) {
         self.all.push(e);
     }

@@ -16,7 +16,7 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     player.vel.y = WALLSLIDE_VEL_Y;
     player.pos += player.vel;
 
-    let deflection = collide(player.bounds(), d.level.get_colliders_near(player.bounds().center()), Some(d.level.bounds()));
+    let deflection = collide(player.bounds(), d.get_colliders_near(player.bounds().center()), Some(d.level.bounds()));
     player.pos += deflection.as_fvec2();
 
     if is_key_pressed(KeyCode::Z) {

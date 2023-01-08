@@ -38,7 +38,7 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     player.vel += GRAVITY;
 
     let deflection =
-        collide(player.bounds(), d.level.get_colliders_near(player.bounds().center()), Some(d.level.bounds()));
+        collide(player.bounds(), d.get_colliders_near(player.bounds().center()), Some(d.level.bounds()));
     player.pos += deflection.as_fvec2();
 
     if player.vel.y > 0.0 && deflection.y < 0 {
