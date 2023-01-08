@@ -40,7 +40,7 @@ pub async fn run() {
         let mut entered_door = false;
         if transition_state.is_play() {
             let mut d = UpdateData {
-                player: &player,
+                player: &mut player,
                 entered_door: false,
             };
             level.day_room.entities.update(&mut d);

@@ -15,7 +15,7 @@ pub fn next_entity_id() -> usize {
 }
 
 pub struct UpdateData<'a> {
-    pub player: &'a Player,
+    pub player: &'a mut Player,
     pub entered_door: bool,
 }
 

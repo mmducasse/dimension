@@ -16,6 +16,7 @@ use crate::entities::door::Door;
 use crate::entities::entities::Entities;
 use crate::entities::entity::{Entity, DrawData};
 use crate::entities::item::Item;
+use crate::entities::player_spawner::PlayerSpawner;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
 
 use super::tile::TileType;
@@ -170,7 +171,6 @@ fn load_entities(json: &JsonTilemap) -> Entities {
     for layer in &json.layers {
         if let Layer::Objectgroup { objects, .. } = layer {
             for object in objects {
-                if object.name == "Player" { continue; }
                 let entity = load_entity(&object);
                 entities.add(entity);
             }
@@ -183,6 +183,9 @@ fn load_entities(json: &JsonTilemap) -> Entities {
 fn load_entity(object: &Object) -> Box<dyn Entity> {
     let pos = i2(object.x, object.y);
     match object.name.as_str() {
+        "Player" => Box::new(PlayerSpawner::new(
+            pos,
+        )),
         "Item" => Box::new(Item::new(
             pos, 
             ItemType::from_str(&object.type_).unwrap(),
