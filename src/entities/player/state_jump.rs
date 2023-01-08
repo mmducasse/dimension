@@ -12,7 +12,8 @@ use super::{
     state::State, 
     consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X}, 
     state_dash, 
-    update_data::PlayerUpdateData
+    update_data::PlayerUpdateData, 
+    state_normal
 };
 
 pub fn start(player: &mut Player) {
@@ -46,7 +47,7 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
            is_key_down(KeyCode::Down) {
             state_dash::start(player.dir, player);
         } else {
-            player.state = State::Idle;
+            state_normal::start(player);
         }
     }
     else if player.vel.y < JUMP_RELEASE_VEL_Y && deflection.y > 0 {

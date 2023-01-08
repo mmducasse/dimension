@@ -2,12 +2,19 @@ use macroquad::prelude::{is_key_pressed, KeyCode};
 
 use crate::{
     io::controller::get_dir_h_down, 
-    systems::collision::collide, consts::GRAVITY, data::item::ItemType
+    systems::collision::collide, 
+    consts::GRAVITY, 
+    data::item::ItemType, 
+    global
 };
 
 use super::{player::Player, state::State, consts::RUN_SPEED_X, state_jump, state_dash, update_data::PlayerUpdateData};
 
 
+pub fn start(player: &mut Player) {
+    player.state = State::Idle;
+    global::player_state::get_mut().last_checkpoint_pos = player.pos;
+}
 
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     if let Some(dir) = get_dir_h_down(d.scene_state.reversed()) {

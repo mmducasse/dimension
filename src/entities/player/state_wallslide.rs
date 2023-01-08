@@ -2,7 +2,13 @@ use macroquad::prelude::{is_key_pressed, KeyCode};
 
 use crate::systems::collision::collide;
 
-use super::{player::Player, state::State, consts::{WALLSLIDE_VEL_Y}, state_jump, update_data::PlayerUpdateData};
+use super::{
+    player::Player,
+    consts::WALLSLIDE_VEL_Y, 
+    state_jump, 
+    update_data::PlayerUpdateData, 
+    state_normal
+};
 
 
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {
@@ -19,9 +25,9 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     }
     else if player.vel.y > 0.0 && deflection.y < 0 {
         player.vel.y = 0.0;
-        player.state = State::Idle;
+        state_normal::start(player);
     }
     else if deflection.x == 0 {
-        player.state = State::Idle;
+        state_normal::start(player);
     }
 }

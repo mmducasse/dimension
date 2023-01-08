@@ -129,6 +129,18 @@
                  "width":0,
                  "x":96,
                  "y":320
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"Door",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":176,
+                 "y":480
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,7 +149,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",

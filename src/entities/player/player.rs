@@ -12,7 +12,8 @@ use crate::{
         buffer::buffer_mut
     }, 
     entities::entity::next_entity_id, 
-    data::item::ItemType, global,
+    data::item::ItemType, global, 
+    level::tile::TileType,
 };
 
 use super::{state::State, anim::{AnimKey, animator}, update_data::PlayerUpdateData};
@@ -50,8 +51,19 @@ impl Player {
         )
     }
 
+    pub fn anchor(&self) -> IVec2 {
+        i2(self.bounds().center().x, self.bounds().bottom())
+    }
+
     pub fn has_item(item: ItemType) -> bool {
         global::player_state::get().items[item as usize]
+    }
+
+    pub fn can_touch(tile_type: TileType) -> bool {
+        match tile_type {
+            TileType::Water => false,
+            _ => true,
+        }
     }
 
     pub fn can_enter_door(&self) -> bool {
@@ -61,6 +73,12 @@ impl Player {
     pub fn update(&mut self, d: &PlayerUpdateData) {
         self.state_timer.update();
         self.state.update(self, d);
+
+        let touch_tile = d.level.tile_type_at(self.anchor(), d.scene_state);
+        if !Self::can_touch(touch_tile) {
+            self.pos = global::player_state::get().last_checkpoint_pos;
+            self.vel = FVec2::ZERO;
+        }
 
         self.animator.set_key(self.state.to_anim_key(self), false);
         self.animator.update();

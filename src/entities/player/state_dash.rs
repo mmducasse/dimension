@@ -6,7 +6,7 @@ use crate::{
     systems::collision::collide, consts::GRAVITY
 };
 
-use super::{player::Player, state::State, consts::{DASH_TIME_S, DASH_SPEED_X}, state_jump, update_data::PlayerUpdateData};
+use super::{player::Player, state::State, consts::{DASH_TIME_S, DASH_SPEED_X}, state_jump, update_data::PlayerUpdateData, state_normal};
 
 pub fn start(dir: DirH, player: &mut Player) {
     player.dir = dir;
@@ -18,7 +18,7 @@ pub fn start(dir: DirH, player: &mut Player) {
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     if !is_key_down(KeyCode::Down) ||
        player.state_timer.is_done() {
-        player.state = State::Idle;
+        state_normal::start(player);
     }
 
     if is_key_pressed(KeyCode::Z) {

@@ -1,3 +1,5 @@
+use xf::num::fvec2::FVec2;
+
 use crate::data::item::ItemType;
 
 
@@ -18,6 +20,7 @@ pub fn get_mut() -> &'static mut PlayerState {
 
 pub struct PlayerState {
     pub items: [bool; ItemType::COUNT],
+    pub last_checkpoint_pos: FVec2,
 }
 
 impl PlayerState {
@@ -25,6 +28,7 @@ impl PlayerState {
         Self {
             // todo: set to false.
             items: [true; ItemType::COUNT],
+            last_checkpoint_pos: FVec2::ZERO,
         }
     }
 }
