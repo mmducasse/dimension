@@ -29,14 +29,18 @@ pub fn buffer_mut() -> &'static mut ImageW {
 }
 
 /// Draws the buffer to the screen then clears the buffer.
-pub fn render_buffer(flip_x: bool) {
+pub fn render_buffer(flip_x: bool, x_scale: f32) {
     unsafe {
         // Convert the buffer to a Texture2D then draw it (not very efficient...).
         let texture2d = Texture2D::from_image(BUFFER.image());
         texture2d.set_filter(FilterMode::Nearest);
 
-        draw_texture_ex(texture2d, 0.0, 0.0, WHITE, DrawTextureParams {
-            dest_size: Some(Vec2::new(screen_width(), screen_height())),
+        let w = screen_width() * x_scale;
+        let h = screen_height();
+        let x = (screen_width() - w) / 2.0;
+
+        draw_texture_ex(texture2d, x, 0.0, WHITE, DrawTextureParams {
+            dest_size: Some(Vec2::new(w, h)),
             source: None,
             rotation: 0.0,
             flip_x,

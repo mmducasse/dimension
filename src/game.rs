@@ -11,7 +11,7 @@ use crate::{
         player::{player::Player, update_data::PlayerUpdateData}, entity::UpdateData,
     }, 
     ui::hud, 
-    data::{item::ItemType, scene_state::SceneState}, 
+    data::{item::ItemType, scene_state::SceneState, transition_state::TransitionState}, 
     global
 };
 
@@ -22,6 +22,7 @@ pub async fn run() {
         Err(e) => panic!("{}", e),
     };
 
+    let mut transition_state = TransitionState::Play;
     let mut state = SceneState::Day;
     let mut player = Player::new(i2(32, 32));
     //let mut entities = Entities::new();   
@@ -36,21 +37,23 @@ pub async fn run() {
         time = next_time;
 
         // Update game state.
-        
-        let mut d = UpdateData {
-            player: &player,
-            entered_door: false,
-        };
-        level.day_room.entities.update(&mut d);
-        let entered_door = d.entered_door;
-        drop(d);
-
-
-        player.update(&PlayerUpdateData {
-            level: &level,
-            entities: &level.day_room.entities,
-            scene_state: state,
-        });
+        let mut entered_door = false;
+        if transition_state.is_play() {
+            let mut d = UpdateData {
+                player: &player,
+                entered_door: false,
+            };
+            level.day_room.entities.update(&mut d);
+            entered_door = d.entered_door;
+            drop(d);
+    
+    
+            player.update(&PlayerUpdateData {
+                level: &level,
+                entities: &level.day_room.entities,
+                scene_state: state,
+            });
+        }
 
         // Draw.
         let org = camera::follow(player.bounds().center(), VIEW_SIZE, level.bounds());
@@ -58,13 +61,15 @@ pub async fn run() {
         level.draw(ir(org, VIEW_SIZE), state);
         player.draw(org);
         hud::draw(HUD_ORIGIN);
+
+        transition_state.update(entered_door);
         
         // Finish frame.
         check_requested_new_scale();
         check_toggle_item();
-        render_buffer(state != SceneState::Day);
+        render_buffer(state != SceneState::Day, transition_state.x_scale());
 
-        if entered_door {
+        if transition_state.needs_world_switch() {
             state = match state {
                 SceneState::Day => SceneState::Night,
                 SceneState::Night => SceneState::Day,
