@@ -27,6 +27,7 @@ pub struct DrawData {
 pub trait Entity {
     fn id(&self) -> usize;
     fn bounds(&self) -> IRect;
+    fn collides(&self) -> bool { false }
     fn update(&mut self, d: &mut UpdateData);
     fn draw(&self, d: &DrawData);
 }

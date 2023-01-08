@@ -15,6 +15,7 @@ use crate::data::scene_state::SceneState;
 use crate::entities::door::Door;
 use crate::entities::entities::Entities;
 use crate::entities::entity::{Entity, DrawData};
+use crate::entities::gate::Gate;
 use crate::entities::item::Item;
 use crate::entities::player_spawner::PlayerSpawner;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
@@ -183,16 +184,13 @@ fn load_entities(json: &JsonTilemap) -> Entities {
 fn load_entity(object: &Object) -> Box<dyn Entity> {
     let pos = i2(object.x, object.y);
     match object.name.as_str() {
-        "Player" => Box::new(PlayerSpawner::new(
-            pos,
-        )),
         "Item" => Box::new(Item::new(
             pos, 
             ItemType::from_str(&object.type_).unwrap(),
         )),
-        "Door" => Box::new(Door::new(
-            pos,
-        )),
+        "Player" => Box::new(PlayerSpawner::new(pos)),
+        "Door" => Box::new(Door::new(pos)),
+        "GateR" => Box::new(Gate::new(pos, ItemType::KeyRed)),
         _ => panic!("Unexpected object name: {}", object.name),
     }
 }

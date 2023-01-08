@@ -1,4 +1,30 @@
 
+#[macro_export]
+macro_rules! row {
+    ($len:expr, $dur:expr, $origin:expr) => {
+        {
+            use xf::gl::anim::{Seq, seq_row};
+
+            const LEN: usize = $len;
+            const C: Seq<LEN> = seq_row::<LEN>($dur, $origin, false);
+            &C
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! row_l {
+    ($len:expr, $dur:expr, $origin:expr) => {
+        {
+            use xf::gl::anim::{Seq, seq_row};
+
+            const LEN: usize = $len;
+            const C: Seq<LEN> = seq_row::<LEN>($dur, $origin, true);
+            &C
+        }
+    };
+}
+
 
 #[macro_export]
 macro_rules! row_2_l {
@@ -23,3 +49,4 @@ macro_rules! row_2_l {
         }
     };
 }
+
