@@ -1,16 +1,14 @@
 use macroquad::prelude::{is_key_pressed, KeyCode};
 use xf::num::{ivec2::{IVec2, i2}, irect::{ir, IRect}};
 
-use crate::{
-    common::update_data::UpdateData, 
+use crate::{ 
     graphics::{textures::TextureId, buffer::draw_texture}, 
-    consts::P16,
+    consts::P16, data::{scene_state::SceneState, item::ItemType},
 };
 
-use super::entity::{Entity, next_entity_id};
+use super::{entity::{Entity, next_entity_id, UpdateData, DrawData}, player::player::Player};
 
 
-const SRC_P16: IVec2 = i2(0, 0);
 const SIZE_P16: IVec2 = i2(1, 2);
 
 pub struct Door {
@@ -35,7 +33,8 @@ impl Entity for Door {
     }
 
     fn update(&mut self, d: &mut UpdateData) {
-        if self.bounds().intersection(d.player.bounds()).is_some() &&
+        if Player::has_item(ItemType::Glasses) &&
+           self.bounds().intersection(d.player.bounds()).is_some() &&
            is_key_pressed(KeyCode::Up) &&
            d.player.can_enter_door()
         {
@@ -44,11 +43,20 @@ impl Entity for Door {
         }
     }
 
-    fn draw(&self, org: IVec2) {
-        let texture = TextureId::Misc.texture();
-    
-        let src = ir(SRC_P16 * P16, SIZE_P16 * P16);
-        let dst_pos = self.pos - org;
-        draw_texture(&texture, src, dst_pos);
+    fn draw(&self, d: &DrawData) {
+        if Player::has_item(ItemType::Glasses) {
+            let texture = TextureId::Misc.texture();
+        
+            let src = ir(src_p16(d.scene_state) * P16, SIZE_P16 * P16);
+            let dst_pos = self.pos - d.org;
+            draw_texture(&texture, src, dst_pos);
+        }
+    }
+}
+
+fn src_p16(scene_state: SceneState) -> IVec2 {
+    match scene_state {
+        SceneState::Day => i2(0, 0),
+        SceneState::Night => i2(1, 0),
     }
 }

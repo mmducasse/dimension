@@ -5,11 +5,10 @@ use xf::{num::{ivec2::i2, irect::ir}, time::time};
 
 use crate::{
     graphics::{buffer::render_buffer, camera, window::set_scale},
-    level::level::Level, 
-    common::update_data::UpdateData, 
+    level::level::Level,
     consts::{VIEW_SIZE, HUD_ORIGIN}, 
     entities::{
-        player::{player::Player, update_data::PlayerUpdateData},
+        player::{player::Player, update_data::PlayerUpdateData}, entity::UpdateData,
     }, 
     ui::hud, 
     data::{item::ItemType, scene_state::SceneState}, 
@@ -57,7 +56,6 @@ pub async fn run() {
         let org = camera::follow(player.bounds().center(), VIEW_SIZE, level.bounds());
 
         level.draw(ir(org, VIEW_SIZE), state);
-        level.day_room.entities.draw(org);
         player.draw(org);
         hud::draw(HUD_ORIGIN);
         

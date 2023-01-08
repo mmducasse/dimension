@@ -27,6 +27,6 @@ const DAY_TILESET: TilesetInfo = TilesetInfo {
 };
 
 const NIGHT_TILESET: TilesetInfo = TilesetInfo {
-    tileset: include_bytes!("../../assets/tilesets/NightTileset.tsj"),
+    tileset: include_bytes!("../../assets/tilesets/DayTileset.tsj"),
     image: include_bytes!("../../assets/tilesets/NightTileset.png"),
 };

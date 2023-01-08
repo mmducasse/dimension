@@ -1,8 +1,5 @@
-use xf::num::ivec2::IVec2;
 
-use crate::common::update_data::UpdateData;
-
-use super::entity::Entity;
+use super::entity::{Entity, UpdateData, DrawData};
 
 
 
@@ -25,9 +22,9 @@ impl Entities {
         }
     }
 
-    pub fn draw(&self, org: IVec2) {
+    pub fn draw(&self, d: &DrawData) {
         for e in &self.all {
-            e.draw(org);
+            e.draw(d);
         }
     }
 }
