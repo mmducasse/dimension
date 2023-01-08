@@ -12,11 +12,12 @@ DONE:
   + Doors
   + Gates
 + Day/Night transition
++ Spikes
+- Build level
 
 
 TODO:
-- Spikes
-- Build level
 - Better transition
 - Stopwatch
 - Signs
+- Goal

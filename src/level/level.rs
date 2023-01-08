@@ -16,6 +16,7 @@ use crate::entities::door::Door;
 use crate::entities::entities::Entities;
 use crate::entities::entity::{Entity, DrawData};
 use crate::entities::gate::Gate;
+use crate::entities::goal::Goal;
 use crate::entities::item::Item;
 use crate::entities::player_spawner::PlayerSpawner;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
@@ -164,6 +165,7 @@ fn load_entity(object: &Object) -> Box<dyn Entity> {
             pos, 
             ItemType::from_str(&object.type_).unwrap(),
         )),
+        "Goal" => Box::new(Goal::new(pos)),
         "Player" => Box::new(PlayerSpawner::new(pos)),
         "Door" => Box::new(Door::new(pos)),
         "GateR" => Box::new(Gate::new(pos, ItemType::KeyRed)),

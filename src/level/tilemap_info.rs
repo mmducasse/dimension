@@ -23,11 +23,11 @@ pub struct TilemapInfo {
 }
 
 const DAY_TILEMAP: TilemapInfo = TilemapInfo {
-    tilemap: include_bytes!("../../assets/Tilemaps/DayLevel.tmj"),
+    tilemap: include_bytes!("../../assets/Tilemaps/TestLevel02.tmj"),
     tileset_info: &TilesetId::Day.info(),
 };
 
 const NIGHT_TILEMAP: TilemapInfo = TilemapInfo {
-    tilemap: include_bytes!("../../assets/Tilemaps/DayLevel.tmj"),
+    tilemap: include_bytes!("../../assets/Tilemaps/TestLevel02_Nite.tmj"),
     tileset_info: &TilesetId::Night.info(),
 };

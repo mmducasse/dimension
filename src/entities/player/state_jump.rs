@@ -10,7 +10,7 @@ use crate::{
 use super::{
     player::Player, 
     state::State, 
-    consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X}, 
+    consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X, MAX_FALL_VEL_Y}, 
     state_dash, 
     update_data::PlayerUpdateData, 
     state_normal
@@ -37,6 +37,8 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
 
     player.pos += player.vel;
     player.vel += GRAVITY;
+
+    player.vel.y = player.vel.y.min(MAX_FALL_VEL_Y);
 
     let deflection = collide(player.bounds(), d.get_colliders_near(player.bounds().center()), Some(d.level.bounds()));
     player.pos += deflection.as_fvec2();
