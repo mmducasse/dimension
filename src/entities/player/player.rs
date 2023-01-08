@@ -61,7 +61,7 @@ impl Player {
 
     pub fn can_touch(tile_type: TileType) -> bool {
         match tile_type {
-            TileType::Water => false,
+            TileType::Water => Self::has_item(ItemType::Snorkel),
             _ => true,
         }
     }

@@ -7,17 +7,18 @@ pub enum ItemType {
     Glasses,
     Gloves,
     Boots,
-
+    Snorkel,
 
 }
 
 impl ItemType {
-    pub const COUNT: usize = 3;
+    pub const COUNT: usize = 4;
 
     pub const ALL: [ItemType; Self::COUNT] = [
         ItemType::Glasses,
         ItemType::Gloves,
         ItemType::Boots,
+        ItemType::Snorkel,
     ];
 
     pub fn p16_src(self) -> IVec2 {
@@ -27,6 +28,7 @@ impl ItemType {
             Glasses => i2(0, 0),
             Gloves => i2(1, 0),
             Boots => i2(2, 0),
+            Snorkel => i2(3, 0),
         }
     }
 }
@@ -41,6 +43,7 @@ impl FromStr for ItemType {
             "Glasses" => Glasses,
             "Gloves" => Gloves,
             "Boots" => Boots,
+            "Snorkel" => Snorkel,
             _ => {
                 panic!("Unexpected item type: {}", s)
             }

@@ -96,7 +96,7 @@ fn check_requested_new_scale() {
 fn check_toggle_item() {
     use KeyCode::*;
     const KEY_CODES: [KeyCode; ItemType::COUNT] =
-        [Q, W, E];
+        [Q, W, E, R];
         
     for (item_idx, &key_code) in KEY_CODES.iter().enumerate() {
         if is_key_pressed(key_code) {
