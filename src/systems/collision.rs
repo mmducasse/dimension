@@ -63,10 +63,19 @@ fn collide_axis(collider: IRect, others: &Vec<IRect>, force_axis: Option<bool>) 
 }
 
 fn keep_inside(collider: &mut IRect, room_bounds: IRect) {
+    // Horizontal
     if collider.left() < room_bounds.left() {
         collider.pos.x = room_bounds.left();
     }
     else if collider.right() > room_bounds.right() {
         collider.pos.x = room_bounds.right() - collider.w();
+    }
+
+    // Vertical
+    if collider.top() < room_bounds.top() {
+        collider.pos.y = room_bounds.top();
+    }
+    else if collider.bottom() > room_bounds.bottom() {
+        collider.pos.y = room_bounds.bottom() - collider.h();
     }
 }

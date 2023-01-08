@@ -13,11 +13,12 @@ DONE:
   + Gates
 + Day/Night transition
 + Spikes
-- Build level
++ Build level
++ Goal
 
 
 TODO:
+- Bugs
 - Better transition
 - Stopwatch
 - Signs
-- Goal

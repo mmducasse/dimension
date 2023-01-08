@@ -26,8 +26,7 @@ pub struct PlayerState {
 impl PlayerState {
     const fn new() -> Self {
         Self {
-            // todo: set to false.
-            items: [true; ItemType::COUNT],
+            items: [false; ItemType::COUNT],
             last_checkpoint_pos: FVec2::ZERO,
         }
     }
