@@ -52,7 +52,8 @@ impl Player {
     }
 
     pub fn anchor(&self) -> IVec2 {
-        i2(self.bounds().center().x, self.bounds().bottom())
+        //i2(self.bounds().center().x, self.bounds().bottom())
+        self.bounds().center()
     }
 
     pub fn has_item(item: ItemType) -> bool {
@@ -62,6 +63,7 @@ impl Player {
     pub fn can_touch(tile_type: TileType) -> bool {
         match tile_type {
             TileType::Water => Self::has_item(ItemType::Snorkel),
+            TileType::Spikes => false,
             _ => true,
         }
     }

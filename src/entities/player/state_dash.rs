@@ -3,8 +3,8 @@ use xf::time::timer::Timer;
 
 use crate::{
     common::dir_h::DirH, 
-    systems::collision::collide, consts::GRAVITY, 
-    global
+    systems::collision::collide, 
+    consts::GRAVITY, 
 };
 
 use super::{

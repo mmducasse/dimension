@@ -102,6 +102,22 @@
         {
          "id":63,
          "type":"Wall"
+        }, 
+        {
+         "id":109,
+         "type":"Spikes"
+        }, 
+        {
+         "id":110,
+         "type":"Spikes"
+        }, 
+        {
+         "id":111,
+         "type":"Spikes"
+        }, 
+        {
+         "id":112,
+         "type":"Spikes"
         }],
  "tilewidth":16,
  "type":"tileset",

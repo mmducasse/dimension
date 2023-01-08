@@ -30,4 +30,8 @@
  <tile id="61" type="Wall"/>
  <tile id="62" type="Wall"/>
  <tile id="63" type="Wall"/>
+ <tile id="109" type="Spikes"/>
+ <tile id="110" type="Spikes"/>
+ <tile id="111" type="Spikes"/>
+ <tile id="112" type="Spikes"/>
 </tileset>

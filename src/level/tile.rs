@@ -9,6 +9,7 @@ pub enum TileType {
     Empty,
     Wall,
     Water,
+    Spikes,
 }
 
 impl TileType {
@@ -32,6 +33,7 @@ impl FromStr for TileType {
         Ok(match s {
             "Wall" => Wall,
             "Water" => Water,
+            "Spikes" => Spikes,
             _ => Empty,
         })
     }

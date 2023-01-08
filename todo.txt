@@ -4,17 +4,19 @@ DONE:
 + Player
 + Map collision
 + Player Movement States
++ Entities
+  + Item pickups
+    + Equipment: Gloves, Dash Shoes, Glasses, [Swim Gear]
+    + Keys
+  x Coins
+  + Doors
+  + Gates
++ Day/Night transition
 
 
 TODO:
-- Entities
-  - Item pickups
-    - Equipment: Gloves, Dash Shoes, Glasses, [Swim Gear]
-    - Keys
-  - Coins
-  - Doors
-  - Gates
-- Enemies
-- Damage
-- Day/Night transition
-- Player Attacks
+- Spikes
+- Build level
+- Better transition
+- Stopwatch
+- Signs

@@ -52,6 +52,10 @@ impl FromStr for ItemType {
             "Gloves" => Gloves,
             "Boots" => Boots,
             "Snorkel" => Snorkel,
+
+            "KeyRed" => KeyRed,
+            "KeyGreen" => KeyGreen,
+            "KeyBlue" => KeyBlue,
             _ => {
                 panic!("Unexpected item type: {}", s)
             }
