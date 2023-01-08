@@ -21,7 +21,7 @@ pub fn start(dir: DirH, player: &mut Player) {
     player.state = State::Dash;
     player.state_timer = Timer::new(DASH_TIME_S);
     player.vel.x = dir.unit().x as f32 * DASH_SPEED_X;
-    global::player_state::get_mut().last_checkpoint_pos = player.pos;
+    //global::player_state::get_mut().last_checkpoint_pos = player.pos;
 }
 
 pub fn update(player: &mut Player, d: &PlayerUpdateData) {

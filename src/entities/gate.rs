@@ -24,7 +24,7 @@ const RADIUS: i32 = 4;
 
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 enum State {
-    Closed,
+    Closed(ItemType),
     Opening,
     Open,
 }
@@ -42,7 +42,7 @@ impl Gate {
             id: next_entity_id(),
             pos,
             key,
-            animator: animator(),
+            animator: animator(key),
         }
     }
 }
@@ -60,15 +60,15 @@ impl Entity for Gate {
 
     fn update(&mut self, d: &mut UpdateData) {
         match self.animator.curr_key {
-            State::Closed => {
+            State::Closed(_) => {
                 if Player::has_item(self.key) &&
                 self.bounds().expand(RADIUS).intersection(d.player.bounds()).is_some()
                 {
-                    self.animator.curr_key = State::Opening;
+                    self.animator.set_key(State::Opening, false);
                 }
             },
             State::Opening => if self.animator.is_done() {
-                self.animator.curr_key = State::Open
+                self.animator.set_key(State::Open, false);
             },
             State::Open => {},
         }
@@ -84,9 +84,9 @@ impl Entity for Gate {
     }
 }
 
-fn animator() -> Animator<State> {
+fn animator(key: ItemType) -> Animator<State> {
     Animator::new(
-        State::Closed, 
+        State::Closed(key), 
         SIZE_P16 * P16, 
         map_fn
     )
@@ -95,9 +95,12 @@ fn animator() -> Animator<State> {
 fn map_fn(key: State) -> &'static dyn Animation {
 
     use State::*;
-    const DUR: f32 = 0.30;
+    const DUR: f32 = 0.10;
 
     match key {
+        Closed(ItemType::KeyRed) => row_l!(1, DUR, i2(0, 0)),
+        Closed(ItemType::KeyGreen) => row_l!(1, DUR, i2(1, 0)),
+        Closed(ItemType::KeyBlue) => row_l!(1, DUR, i2(2, 0)),
         Opening => row!(8, DUR, i2(0, 1)),
         _ => row_l!(1, DUR, i2(0, 0)),
     }

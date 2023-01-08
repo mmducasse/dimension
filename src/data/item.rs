@@ -2,7 +2,7 @@ use std::str::FromStr;
 
 use xf::num::ivec2::{IVec2, i2};
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum ItemType {
     Glasses,
     Gloves,

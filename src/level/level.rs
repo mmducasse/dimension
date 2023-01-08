@@ -167,6 +167,8 @@ fn load_entity(object: &Object) -> Box<dyn Entity> {
         "Player" => Box::new(PlayerSpawner::new(pos)),
         "Door" => Box::new(Door::new(pos)),
         "GateR" => Box::new(Gate::new(pos, ItemType::KeyRed)),
+        "GateG" => Box::new(Gate::new(pos, ItemType::KeyGreen)),
+        "GateB" => Box::new(Gate::new(pos, ItemType::KeyBlue)),
         _ => panic!("Unexpected object name: {}", object.name),
     }
 }
