@@ -76,7 +76,7 @@ pub async fn run() {
         
         // Finish frame.
         check_requested_new_scale();
-        check_toggle_item();
+        //check_toggle_item(); // todo: comment out
         render_buffer(state != SceneState::Day, transition_state.x_scale());
 
         if transition_state.needs_world_switch() {
@@ -102,7 +102,6 @@ fn check_requested_new_scale() {
     }
 }
 
-// todo: comment out
 // for troubleshooting
 fn check_toggle_item() {
     use crate::data::item::ItemType;

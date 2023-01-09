@@ -17,8 +17,8 @@ DONE:
 + Goal
 + Bugs
 + Stopwatch
++ Signs
 
 
 TODO:
 - Better transition
-- Signs

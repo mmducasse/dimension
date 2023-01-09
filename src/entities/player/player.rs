@@ -52,8 +52,7 @@ impl Player {
     }
 
     pub fn anchor(&self) -> IVec2 {
-        //i2(self.bounds().center().x, self.bounds().bottom())
-        self.bounds().center()
+        self.bounds().center() + i2(0, 4)
     }
 
     pub fn has_item(item: ItemType) -> bool {

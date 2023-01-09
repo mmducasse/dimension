@@ -8,7 +8,7 @@ use crate::{
 
 use super::tile::Tile;
 
-const TILE_ANIMATION_RATE: u64 = 4;
+const TILE_ANIMATION_RATE: u64 = 8;
 
 pub struct Room {
     pub tilemap: Tilemap<Tile>,

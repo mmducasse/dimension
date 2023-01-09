@@ -227,7 +227,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":352,
+                 "x":400,
                  "y":112
                 }, 
                 {
@@ -440,11 +440,23 @@
                  "name":"Sign",
                  "point":true,
                  "rotation":0,
-                 "type":"Testing testing 123.",
+                 "type":"< Treasure Cave",
                  "visible":true,
                  "width":0,
-                 "x":400,
+                 "x":352,
                  "y":112
+                }, 
+                {
+                 "height":0,
+                 "id":28,
+                 "name":"Sign",
+                 "point":true,
+                 "rotation":0,
+                 "type":"The treasure key is down the well.",
+                 "visible":true,
+                 "width":0,
+                 "x":992,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -453,7 +465,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":28,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",

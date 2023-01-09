@@ -30,7 +30,7 @@ pub struct PlayerState {
 impl PlayerState {
     const fn new() -> Self {
         Self {
-            items: [true; ItemType::COUNT],
+            items: [false; ItemType::COUNT],
             last_checkpoint_pos: FVec2::ZERO,
             won: false,
             play_time: Duration::ZERO,

@@ -433,6 +433,30 @@
                  "width":0,
                  "x":1088,
                  "y":1472
+                }, 
+                {
+                 "height":0,
+                 "id":30,
+                 "name":"Sign",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Now you can breathe underwater!",
+                 "visible":true,
+                 "width":0,
+                 "x":368,
+                 "y":720
+                }, 
+                {
+                 "height":0,
+                 "id":31,
+                 "name":"Sign",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Jump down @",
+                 "visible":true,
+                 "width":0,
+                 "x":992,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -441,7 +465,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":30,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",
