@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 use macroquad::{window::next_frame, prelude::{is_key_pressed, KeyCode}};
-use xf::{num::{ivec2::i2, irect::ir}, time::time};
+use xf::{num::{ivec2::{i2, IVec2}, irect::ir}, time::time};
 
 use crate::{
     graphics::{buffer::render_buffer, camera, window::set_scale},
@@ -10,8 +10,8 @@ use crate::{
     entities::{
         player::{player::Player, update_data::PlayerUpdateData}, entity::UpdateData,
     }, 
-    ui::hud, 
-    data::{scene_state::SceneState, transition_state::TransitionState},
+    ui::{hud, win_dlg}, 
+    data::{scene_state::SceneState, transition_state::TransitionState}, global,
 };
 
 
@@ -30,14 +30,21 @@ pub async fn run() {
 
     // Main game loop.
     loop {
+        let won = global::player_state::get().won;
+
         // Update time.
         let next_time = SystemTime::now();
-        time::update(&next_time.duration_since(time).unwrap_or_default());
+        let delta = next_time.duration_since(time).unwrap_or_default();
+        time::update(&delta);
         time = next_time;
+
+        if !won {
+            global::player_state::get_mut().play_time += delta;
+        }
 
         // Update game state.
         let mut entered_door = false;
-        if transition_state.is_play() {
+        if transition_state.is_play() && !won {
             let mut d = UpdateData {
                 player: &mut player,
                 entered_door: false,
@@ -60,6 +67,10 @@ pub async fn run() {
         level.draw(ir(org, VIEW_SIZE), state);
         player.draw(org);
         hud::draw(HUD_ORIGIN);
+
+        if won {
+            win_dlg::draw(IVec2::ZERO);
+        }
 
         transition_state.update(entered_door);
         

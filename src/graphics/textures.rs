@@ -14,9 +14,11 @@ pub enum TextureId {
 
     // UI
     Hud,
+    WinDlg,
+    Text,
 }
 
-const COUNT: usize = 5;
+const COUNT: usize = 7;
 
 const fn get_bytes(id: TextureId) -> &'static [u8] {
     use TextureId::*;
@@ -26,7 +28,9 @@ const fn get_bytes(id: TextureId) -> &'static [u8] {
         Items => include_bytes!("../../assets/Sprites/Items.png"),
         Gates => include_bytes!("../../assets/Sprites/Gates.png"),
         Misc => include_bytes!("../../assets/Sprites/Misc.png"),
-        Hud => include_bytes!("../../assets/Sprites/Hud.png")
+        Hud => include_bytes!("../../assets/Sprites/Hud.png"),
+        WinDlg => include_bytes!("../../assets/Sprites/WinDialog.png"),
+        Text => include_bytes!("../../assets/Sprites/font6x6.png"),
     }
 }
 

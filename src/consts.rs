@@ -5,6 +5,7 @@ use crate::common::ivec2::mul;
 
 pub const GRAVITY: FVec2 = f2(0.0, 0.2);
 
+pub const P8: IVec2 = i2(8, 8);
 pub const P16: IVec2 = i2(16, 16);
 
 pub const VIEW_P16_ORIGIN: IVec2 = i2(0, 0);

@@ -15,10 +15,10 @@ DONE:
 + Spikes
 + Build level
 + Goal
++ Bugs
++ Stopwatch
 
 
 TODO:
-- Bugs
 - Better transition
-- Stopwatch
 - Signs

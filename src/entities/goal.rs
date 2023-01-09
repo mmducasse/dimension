@@ -2,7 +2,7 @@ use xf::num::{ivec2::{IVec2, i2}, irect::{ir, IRect}};
 
 use crate::{
     graphics::{textures::TextureId, buffer::draw_texture}, 
-    consts::P16,
+    consts::P16, global,
 };
 
 use super::entity::{Entity, next_entity_id, UpdateData, DrawData};
@@ -34,7 +34,7 @@ impl Entity for Goal {
     fn update(&mut self, d: &mut UpdateData) {
         if self.bounds().intersection(d.player.bounds()).is_some() {
             // Won game!
-            println!("WON!!!");
+            global::player_state::get_mut().won = true;
         }
     }
 
