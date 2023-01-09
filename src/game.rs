@@ -11,8 +11,7 @@ use crate::{
         player::{player::Player, update_data::PlayerUpdateData}, entity::UpdateData,
     }, 
     ui::hud, 
-    data::{item::ItemType, scene_state::SceneState, transition_state::TransitionState}, 
-    global
+    data::{scene_state::SceneState, transition_state::TransitionState},
 };
 
 
@@ -43,7 +42,7 @@ pub async fn run() {
                 player: &mut player,
                 entered_door: false,
             };
-            level.day_room.entities.update(&mut d);
+            level.curr_room_mut(state).entities.update(&mut d);
             entered_door = d.entered_door;
             drop(d);
     
@@ -92,15 +91,17 @@ fn check_requested_new_scale() {
     }
 }
 
-// todo: delete
+// todo: comment out
+// for troubleshooting
 fn check_toggle_item() {
+    use crate::data::item::ItemType;
     use KeyCode::*;
     const KEY_CODES: [KeyCode; ItemType::COUNT] =
         [Q, W, E, R, T, Y, U];
         
     for (item_idx, &key_code) in KEY_CODES.iter().enumerate() {
         if is_key_pressed(key_code) {
-            let item = &mut global::player_state::get_mut().items[item_idx];
+            let item = &mut crate::global::player_state::get_mut().items[item_idx];
             *item = !(*item);
         }
     }

@@ -49,6 +49,13 @@ impl Level {
         }
     }
 
+    pub fn curr_room_mut(&mut self, scene_state: SceneState) -> &mut Room {
+        match scene_state {
+            SceneState::Day => &mut self.day_room,
+            SceneState::Night => &mut self.night_room,
+        }
+    }
+
     pub fn draw(&self, view: IRect, scene_state: SceneState) {
         self.curr_room(scene_state).draw(view);
         self.curr_room(scene_state).entities.draw(&DrawData {
