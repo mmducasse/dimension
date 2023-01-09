@@ -433,6 +433,18 @@
                  "width":0,
                  "x":96,
                  "y":112
+                }, 
+                {
+                 "height":0,
+                 "id":27,
+                 "name":"Sign",
+                 "point":true,
+                 "rotation":0,
+                 "type":"Testing testing 123.",
+                 "visible":true,
+                 "width":0,
+                 "x":400,
+                 "y":112
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -441,7 +453,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":27,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",

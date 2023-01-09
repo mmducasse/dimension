@@ -7,3 +7,4 @@ pub mod door;
 pub mod player_spawner;
 pub mod gate;
 pub mod goal;
+pub mod sign;

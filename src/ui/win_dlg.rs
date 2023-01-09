@@ -16,5 +16,5 @@ pub fn draw(org: IVec2) {
 
     let play_time = &global::player_state::get().play_time;
     let text = min_sec_ms_string(play_time);
-    text::draw(&text, TIME_POS_P8 * P8);
+    text::draw(&text, TIME_POS_P8 * P8, false);
 }

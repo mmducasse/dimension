@@ -19,6 +19,7 @@ use crate::entities::gate::Gate;
 use crate::entities::goal::Goal;
 use crate::entities::item::Item;
 use crate::entities::player_spawner::PlayerSpawner;
+use crate::entities::sign::Sign;
 use crate::graphics::image::convert_mq_image_to_xf_texture;
 
 use super::tile::TileType;
@@ -175,6 +176,10 @@ fn load_entity(object: &Object) -> Box<dyn Entity> {
         "Goal" => Box::new(Goal::new(pos)),
         "Player" => Box::new(PlayerSpawner::new(pos)),
         "Door" => Box::new(Door::new(pos)),
+        "Sign" => Box::new(Sign::new(
+            pos,
+            object.type_.to_owned(),
+        )),
         "GateR" => Box::new(Gate::new(pos, ItemType::KeyRed)),
         "GateG" => Box::new(Gate::new(pos, ItemType::KeyGreen)),
         "GateB" => Box::new(Gate::new(pos, ItemType::KeyBlue)),
